@@ -1,50 +1,47 @@
-type ptype = TNormal | TWater | TFire
-type mon = { name: string ; hp: int ; ptype: ptype}
+(* Model of pokemon attack effectiveness *)
 
-let c = { name = "Charmander"; hp = 100; ptype = TFire }
-let () = Printf.printf "%i\n" c.hp
+type ptype = 
+    | TNormal
+    | TFire
+    | TWater
 
-let d = { name = "Charmander2"; hp = 100; ptype = TNormal }
-let () = Printf.printf "%i\n" d.hp
+type peff = 
+    | ENormal
+    | ENotVery
+    | ESuper
 
-let e = { name = "Charmander3"; hp = 100; ptype = TWater }
-let () = Printf.printf "%i\n" e.hp
+type pmon = {
+    name: string;
+    hp: int;
+    ptype: ptype;
+}
 
-let mon_to_string = function
-    | TNormal -> "Normal Type"
-    | TWater -> "Water Type"
-    | TFire -> "Fire Type"
+type pmon_or_ptype = 
+    | Pmon of pmon
+    | Ptype of ptype
 
-let print_mon chan m = output_string chan (mon_to_string m)
+type battle = {
+    attacker: pmon_or_ptype;
+    defender: pmon_or_ptype;
+}
 
 let get_ptype = function 
-    | { ptype=pt; _ } -> pt
+    | Pmon p -> p.ptype
+    | Ptype p -> p
 
-let () = Printf.printf "%a\n" print_mon (get_ptype c)
+let effect_of_battle bat = 
+    let attacker_type = get_ptype bat.attacker in 
+    let defender_type = get_ptype bat.defender in 
+    match attacker_type, defender_type with 
+        | TNormal, _ | _, TNormal
+            -> ENormal
+        | TFire, TFire | TWater, TWater | TFire, TWater
+            -> ENotVery
+        | TWater, TFire 
+            -> ESuper
 
-let sum_tuple = function 
-    | (x , y, z) -> x + y + z
-
-let a = (1, 2, 3)
-let () = Printf.printf "%i\n" (sum_tuple a)
-
-
-let get_x = fun (x, _) -> x
-let get_id = fun x -> x
-
-(* Defining type synonyms *)
-type point = float * float
-type vector = float list
-type matrix = float list list
-
-let p1: point = (1., 2.)
-let p2: float * float = (2., 3.)
-let v1: vector = [1.;2.;3.;4.;5.]
-let m1: matrix = [[1.;2.;3.;4.;5.]; [1.;2.;3.;4.;5.]]
-
-let () = Printf.printf "The first value of the point is %f\n" (get_x p1)
-let _ = get_id p1
-let _ = get_id p2
-let _ = get_id v1
-let _ = get_id m1
+let mult_of_effect = function 
+    | ENormal -> 1.
+    | ENotVery -> 0.5
+    | ESuper -> 2.
 
