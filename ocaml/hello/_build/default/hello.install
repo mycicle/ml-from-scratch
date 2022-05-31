@@ -1,7 +1,17 @@
 lib: [
   "_build/install/default/lib/hello/META"
   "_build/install/default/lib/hello/dune-package"
+  "_build/install/default/lib/hello/main.a"
+  "_build/install/default/lib/hello/main.cma"
+  "_build/install/default/lib/hello/main.cmi"
+  "_build/install/default/lib/hello/main.cmt"
+  "_build/install/default/lib/hello/main.cmx"
+  "_build/install/default/lib/hello/main.cmxa"
+  "_build/install/default/lib/hello/main.ml"
   "_build/install/default/lib/hello/opam"
+]
+libexec: [
+  "_build/install/default/lib/hello/main.cmxs"
 ]
 bin: [
   "_build/install/default/bin/hello"

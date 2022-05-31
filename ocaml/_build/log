@@ -1,0 +1,5 @@
+# dune init project types
+# OCAMLPARAM: unset
+# Shared cache: disabled
+# Workspace root: /Users/mycicle/git/ml-from-scratch/ocaml
+# Auto-detected concurrency: 10

@@ -48,6 +48,18 @@ let rec create_list_aux length fill output =
 let create_list length fill = 
     create_list_aux length fill []
     
+(* Have to comment out the extra days because I don't feel like *)
+(* type day = Mon | Tue | Wed | Thu | Fri | Sat | Sun *)
+type day = Thu
+
+let day_string = function 
+    (* | Mon -> "Monday"
+    | Tue -> "Tuesday"
+    | Wed -> "Wednesday" *)
+    | Thu -> "Thursday"
+    (* | Fri -> "Friday"
+    | Sat -> "Saturday"
+    | Sun -> "Sunday" *)
 
 let print_fill = 2
 let print_length = 10
@@ -61,4 +73,7 @@ let lst = create_list length fill
 
 let () = printf "Sum of the elements in "
 let () = printf "%i:%i" fill length
-let () =  printf ": %i" (sum lst)
+let () =  printf ": %i\n" (sum lst)
+
+let today = Thu
+let () = printf "Today is %s\n" (day_string today)

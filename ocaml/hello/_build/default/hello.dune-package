@@ -1,4 +1,35 @@
 (lang dune 3.2)
 (name hello)
-(sections (lib .) (bin ../../bin))
-(files (lib (META dune-package opam)) (bin (hello)))
+(sections (lib .) (libexec .) (bin ../../bin))
+(files
+ (lib
+  (META
+   dune-package
+   main.a
+   main.cma
+   main.cmi
+   main.cmt
+   main.cmx
+   main.cmxa
+   main.ml
+   opam))
+ (libexec (main.cmxs))
+ (bin (hello)))
+(library
+ (name hello)
+ (kind normal)
+ (archives (byte main.cma) (native main.cmxa))
+ (plugins (byte main.cma) (native main.cmxs))
+ (native_archives main.a)
+ (main_module_name Main)
+ (modes byte native)
+ (modules
+  (wrapped
+   (main_module_name Main)
+   (alias_module
+    (name Main)
+    (obj_name main)
+    (visibility public)
+    (kind alias)
+    (impl))
+   (wrapped true))))
