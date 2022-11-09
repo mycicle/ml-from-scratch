@@ -1,0 +1,3 @@
+/Users/mycicle/CLionProjects/NeuralN/cmake-build-debug/CMakeFiles/NeuralN.dir
+/Users/mycicle/CLionProjects/NeuralN/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/mycicle/CLionProjects/NeuralN/cmake-build-debug/CMakeFiles/rebuild_cache.dir
