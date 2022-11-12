@@ -15,15 +15,19 @@ template <typename T> class MatrixBase {
      * subtract(m1, m2) // equivalent to m1 + m2
      */
 protected:
-    int _size;
     T *data;
 public:
-    explicit MatrixBase(int size) : _size(size), data(nullptr) {}
+    explicit MatrixBase() : data(nullptr) {}
 
-    MatrixBase(int size, T *input) : _size(size), data(nullptr) {
+    MatrixBase(const T* input): data(nullptr) {
         if (input) {
-            std::swap(input, data);
+            data = new T[std::size(input)];
+            memcpy(data, input, std::size(input));
         }
+    }
+
+    MatrixBase(const MatrixBase<T>& other): data(nullptr) {
+        MatrixBase(other.data);
     }
 
     ~MatrixBase() {
@@ -31,8 +35,17 @@ public:
     }
 
     MatrixBase(MatrixBase<T>&& other) noexcept {
-        _size = other._size;
         std::swap(other.data, data);
+
+        return *this;
+    }
+
+    MatrixBase<T>& operator =(const MatrixBase<T>& other) {
+        return *this = MatrixBase(other);
+    }
+
+    MatrixBase<T>& operator =(MatrixBase<T>&& other) {
+        std::swap(this->data, other.data);
 
         return *this;
     }
